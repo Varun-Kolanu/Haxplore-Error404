@@ -21,7 +21,7 @@ export default async () => {
 	const slot1 = new Slot({
 		startTime: new Date("2021-09-01T09:00:00"),
 		endTime: new Date("2021-09-01T10:00:00"),
-		MAX_ATTENDEES: 10,
+		MAX_ATTENDEES: 4,
 		event: event._id,
 		ticketCost: 1009,
 	});

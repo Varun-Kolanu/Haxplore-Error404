@@ -18,6 +18,9 @@ export async function createTicket(req, res) {
 			slot.MAX_ATTENDEES - slot.currentReserved,
 			persons.length
 		);
+        if(cap < persons.length && options.all_together_or_none) {
+            throw new Error("Not enough space in this slot for all persons together");
+        }
 		// Increment the currentReserved count atomically
 		const updatedSlot = await Slot.findOneAndUpdate(
 			{
@@ -53,8 +56,8 @@ export async function createTicket(req, res) {
 			.status(201)
 			.json({ tickets, notConfirmed: persons.slice(cap) });
 	} catch (err) {
-		await session.abortTransaction();
-		return res.status(400).json(err);
+        await session.abortTransaction();
+		return res.status(400).json({ message: err.message });
 	} finally {
 		session.endSession();
 	}
