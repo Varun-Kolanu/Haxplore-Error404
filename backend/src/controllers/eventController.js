@@ -1,4 +1,4 @@
-import Event from "../models/eventModel";
+import Event from "../models/eventModel.js";
 
 export function createEvent(req, res) {
 	const { name, description, mode } = req.body;

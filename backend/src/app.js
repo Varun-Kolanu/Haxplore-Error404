@@ -25,4 +25,5 @@ app.listen(port, () => {
 	console.log(`Express is listening at http://localhost:${port}`);
 });
 
+if(process.env.NODE_ENV === "dev")
 dev_populatedata();

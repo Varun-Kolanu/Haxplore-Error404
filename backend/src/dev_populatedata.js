@@ -4,6 +4,7 @@ import Ticket from "./models/ticketModel.js";
 
 // use this to populate the database with some dummy data for tests
 export default async () => {
+	console.log("Populating data");
 	await Event.find().deleteMany();
 	await Slot.find().deleteMany();
 	//create an event
@@ -22,6 +23,7 @@ export default async () => {
 		endTime: new Date("2021-09-01T10:00:00"),
 		MAX_ATTENDEES: 10,
 		event: event._id,
+		ticketCost: 1009,
 	});
 	await slot1.save();
 	const slot2 = new Slot({
@@ -29,6 +31,7 @@ export default async () => {
 		endTime: new Date("2021-09-01T11:00:00"),
 		MAX_ATTENDEES: 10,
 		event: event._id,
+		ticketCost: 1010,
 	});
 	await slot2.save();
 	const slot3 = new Slot({
@@ -36,6 +39,7 @@ export default async () => {
 		endTime: new Date("2021-09-01T12:00:00"),
 		MAX_ATTENDEES: 10,
 		event: event._id,
+		ticketCost: 1020,
 	});
 	await slot3.save();
 };

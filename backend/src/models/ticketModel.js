@@ -3,15 +3,20 @@ import mongoose from "mongoose";
 const ticketSchema = new mongoose.Schema({
 	ticketNumber: { type: Number, required: true },
 	slot: { type: mongoose.Schema.Types.ObjectId, ref: "Slot" },
-	user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    booked_by: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    person: {
+        type: String, //todo: Person model
+    },
 	type: {
 		type: String,
+        default: "general",
 		enum: ["general", "tatkal", "last-minute"],
 		required: true,
 	},
 
 	status: {
 		type: String,
+        default: "reserved",
 		enum: ["reserved", "cancelled", "waiting"],
 		required: true,
 	},
