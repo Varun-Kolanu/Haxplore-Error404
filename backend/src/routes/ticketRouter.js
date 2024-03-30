@@ -8,3 +8,6 @@ const ticketRouter = express.Router();
 
 ticketRouter.route("/").post(createTicket);
 ticketRouter.route("/:ticketId").delete(cancelTicket);
+
+
+export default ticketRouter;
