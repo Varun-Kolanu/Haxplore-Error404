@@ -1,10 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import "./config.js"
+console.log(process.env.OPENAI_API_KEY);
 import dev_populatedata from "./dev_populatedata.js";
 import eventRouter from "./routes/eventRouter.js";
 import ticketRouter from "./routes/ticketRouter.js";
-dotenv.config();
+import chatRouter from "./routes/chatRouter.js";
 const app = express();
 const port = 3000;
 
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 
 app.use("/events", eventRouter);
 app.use("/tickets", ticketRouter);
+app.use("/chat", chatRouter);
 
 app.listen(port, () => {
 	console.log(`Express is listening at http://localhost:${port}`);
