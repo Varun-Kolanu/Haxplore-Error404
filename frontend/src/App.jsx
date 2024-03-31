@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import './App.css';
-
+import Home from './components/homePage/Home.jsx';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <h1>Counter</h1>
+      <Router>
+        <Routes>
+          <Route exact path='/' element={<Home />} />
+        </Routes>
+      </Router>
     </>
   );
 }
