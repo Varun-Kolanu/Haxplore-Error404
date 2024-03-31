@@ -1,76 +1,96 @@
-import express from "express";
 import Slot from "../models/slotModel.js";
 import Ticket from "../models/ticketModel.js";
 import mongoose from "mongoose";
+import ErrorHandler from "../middlewares/error.js";
 
 // mutually exclusive allotment of tickets
-export async function createTicket(req, res) {
-	const { slotId, persons, options } = req.body;
-	let tickets;
-    const session = await mongoose.startSession();
+export async function bookTickets(req, res, next) {
 	try {
-		session.startTransaction();
-        const slot = await Slot.findById(slotId).session(session);
-        if (!slot) {
-            throw new Error("Slot not found");
-        }
-		const cap = Math.min(
-			slot.MAX_ATTENDEES - slot.currentReserved,
-			persons.length
-		);
-        if(cap < persons.length && options.all_together_or_none) {
-            throw new Error("Not enough space in this slot for all persons together");
-        }
-		// Increment the currentReserved count atomically
-		const updatedSlot = await Slot.findOneAndUpdate(
-			{
-				_id: slotId,
-				currentReserved: { $lt: slot.MAX_ATTENDEES },
-			},
-			{ $inc: { currentReserved: cap } },
-			{ new: true, session }
-		);
-
-		if (!updatedSlot) {
-			throw new Error("Not enough space in this slot");
-		}
-		await session.commitTransaction();
-		tickets = await Promise.all(
-			Array.from({ length: cap }, (_, i) => {
-				const ticket = new Ticket({
-					slot: slotId,
-					person: persons[i],
-					ticketNumber:
-						updatedSlot.currentReserved - cap + i + 1,
-					booked_by: req.user?._id,
-					booked_at: new Date(),
-					type: options.type,
-					status: "reserved",
-					checkinTime: null,
-					checkOutTime: null,
-				});
-				return ticket.save({ session });
+		const { slotId, persons } = req.body;
+		let slot = await Slot.findById(slotId);
+		const availableTickets = slot.MAX_ATTENDEES - slot.currentReserved;
+		if (persons > availableTickets) {
+			return res.status(400).json({
+				message: "Requested number of tickets not available"
 			})
-		);
-		return res
-			.status(201)
-			.json({ tickets, notConfirmed: persons.slice(cap) });
-	} catch (err) {
-        await session.abortTransaction();
-		return res.status(400).json({ message: err.message });
-	} finally {
-		session.endSession();
+		}
+		slot.currentReserved += persons;
+		await slot.save();
+		let tickets = [];
+		for (let i=0; i<persons; i++) {
+			const ticket = await Ticket.create({
+				slot: slotId,
+				booked_by: req.user._id
+			});
+			tickets.push(ticket);
+		}
+		res.status(201).json(tickets);
+	} catch (error) {
+		next(error);
 	}
 }
 
-export async function cancelTicket(req, res) {
+export const confirmTickets = async (req, res, next) => {
+	try {
+		const { slotId } = req.body;
+		let tickets = await Ticket.find({
+			slot: slotId,
+			booked_by: req.user._id,
+			status: 'pending'
+		})
+		tickets.forEach(ticket => {
+			ticket.status = 'confirmed';
+		})
+		await tickets.save();
+		res.status(200).json(tickets);
+	} catch (error) {
+		next(error);
+	}
+}
+
+export const paymentFailed = async (req, res, next) => {
+	try {
+		const { slotId } = req.params;
+		const updateResult = await Ticket.updateMany({
+			slot: slotId,
+			booked_by: req.user._id,
+			status: 'pending'
+		}, {
+			$set: { status: 'cancelled' }
+		});
+		if (updateResult.ok === 1) {
+			const cancelledCount = updateResult.nModified;
+	
+			// Decrement currentReserved in the corresponding slot
+			await Slot.updateOne(
+				{ _id: slotId },
+				{ $inc: { currentReserved: -cancelledCount } }
+			);
+	
+			res.status(200).json({
+				message: "Tickets cancelled successfully"
+			})
+		} else {
+			res.status(400).json({
+				message: "Failed to cancel tickets"
+			})
+		}
+	} catch (error) {
+		next(error);
+	}
+}
+
+export async function cancelTicket(req, res, next) {
 	const { ticketId } = req.params;
-	//todo: verify only the user who booked the ticket can cancel it
 	const ticket = await Ticket.findById(ticketId);
+	const slot = await Slot.findById(ticket.slot);
 	if (!ticket) {
 		return res
 			.status(404)
 			.json({ message: "Ticket not found" });
+	}
+	if (ticket.booked_by !== req.user._id) {
+		return next(new ErrorHandler("You can't cancel others' ticket", 403));
 	}
 	if (ticket.status === "cancelled") {
 		return res
@@ -79,5 +99,11 @@ export async function cancelTicket(req, res) {
 	}
 	ticket.status = "cancelled";
 	await ticket.save();
-	return res.status(200).json(ticket);
+	const currentDate = Date.now();
+	const dateTimeString = `${slot.date}T${slot.startTime}`;
+	const startTimeDate = new Date(dateTimeString);
+	const cancellationAmount = ((currentDate - ticket.createdAt)/(startTimeDate - ticket.createdAt))*slot.ticketCost
+	return res.status(200).json({
+		cancellationAmount
+	});
 }

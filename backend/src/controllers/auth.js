@@ -18,12 +18,12 @@ export const googleStrategyHandler = async (accessToken, refreshToken, profile, 
     }
 }
 
-export const authHandler = async (req, res) => {
+export const authHandler = async (req, res, next) => {
     if (!req.user) return next(new ErrorHandler("Error authenticating user", 401));
     sendJwt(await req.user, res, 200);
 }
 
-export const sendOtp = async (req, res) => {
+export const sendOtp = async (req, res, next) => {
     try {
         const accountSid = process.env.TWILIO_SID;
         const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -48,11 +48,11 @@ export const sendOtp = async (req, res) => {
             message: "Otp sent successfully!"
         })
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 }
 
-export const verifyOtp = async (req, res) => {
+export const verifyOtp = async (req, res, next) => {
     try {
         const { otp, mobileNumber } = req.body;
         const otpDoc = await Otp.findOne({
@@ -72,6 +72,6 @@ export const verifyOtp = async (req, res) => {
         }
         sendJwt(user, res, 200);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 }

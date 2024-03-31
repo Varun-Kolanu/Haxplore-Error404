@@ -1,12 +1,16 @@
 import Event from "../models/eventModel.js";
 
 export function createEvent(req, res) {
-	const { name, description, mode } = req.body;
+	const { name, description } = req.body;
 	const event = new Event({
 		name,
 		description,
-		mode,
 	});
+	if (req.user.role !== 'admin') {
+		return res.status(403).json({
+			message: 'You do not have permission to create an event'
+		})
+	}
 	event
 		.save()
 		.then((event) => {
@@ -38,6 +42,11 @@ export function getEvent(req, res) {
 }
 
 export function updateEvent(req, res) {
+	if (req.user.role !== 'admin') {
+		return res.status(403).json({
+			message: 'You do not have permission to update an event'
+		})
+	}
 	Event.findByIdAndUpdate(req.params.id, req.body, {
 		new: true,
 		runValidators: true,

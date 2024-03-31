@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import dev_populatedata from "./dev_populatedata.js";
 import eventRouter from "./routes/eventRouter.js";
 import ticketRouter from "./routes/ticketRouter.js";
+import slotRouter from "./routes/slotRouter.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import passport from "passport";
@@ -40,6 +41,7 @@ app.use("/auth", authRouter);
 app.use("/events", eventRouter);
 app.use("/tickets", ticketRouter);
 app.use("/chat", chatRouter);
+app.use("/slot", slotRouter);
 
 app.use(errorMiddleware);
 
