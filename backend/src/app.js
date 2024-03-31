@@ -1,31 +1,47 @@
 import express from "express";
-import mongoose from "mongoose";
-import "./config.js"
-console.log(process.env.OPENAI_API_KEY);
+import dotenv from "dotenv";
 import dev_populatedata from "./dev_populatedata.js";
 import eventRouter from "./routes/eventRouter.js";
 import ticketRouter from "./routes/ticketRouter.js";
-import chatRouter from "./routes/chatRouter.js";
-const app = express();
-const port = 3000;
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import passport from "passport";
+import session from "express-session";
+import authRouter from "./routes/auth.js";
+import { errorMiddleware } from "./middlewares/error.js";
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {});
+import chatRouter from "./routes/chatRouter.js";
+export const app = express();
+app.use(cors({}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+app.use(
+    cors({
+        origin: ["*"],
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        credentials: true,
+    }));
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    saveUninitialized: true,
+    resave: false
+}));
+app.use(passport.initialize());
+app.use(passport.session())
 
 app.get("/", (req, res) => {
 	res.send("Hello World!");
 });
 
+app.use("/auth", authRouter);
 app.use("/events", eventRouter);
 app.use("/tickets", ticketRouter);
 app.use("/chat", chatRouter);
 
-app.listen(port, () => {
-	console.log(`Express is listening at http://localhost:${port}`);
-});
+app.use(errorMiddleware);
 
 if(process.env.NODE_ENV === "dev")
 dev_populatedata();
