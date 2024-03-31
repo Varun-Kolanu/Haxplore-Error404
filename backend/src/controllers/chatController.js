@@ -8,44 +8,41 @@ export async function chatResponse(req, res) {
 
 // replace with literally anything better
 async function chatbotResponse(message) {
-	const response = {
-		message:
-			"I'm sorry, I don't understand that. Please try again.",
-		type: "text",
-	};
+	const response =
+		"I'm sorry, I don't understand that. Please try again.";
 	message = message.toLowerCase();
 	if (message.includes("hello")) {
-		response.message = "Hello! How can I help you today?";
+		response = "Hello! How can I help you today?";
 	} else if (message.includes("help")) {
-		response.message =
+		response =
 			"I can help you with the following:\n\n1. Book a ticket\n2. Cancel a ticket\n3. Check ticket status\n4. Get information about the event\n5. Contact support";
 	} else if (message.includes("book a ticket")) {
-		response.message =
+		response =
 			"Sure! Please provide me with the following information:\n\n1. Number of tickets\n2. Type of ticket (e.g. VIP, General Admission, etc.)\n3. Names of the attendees";
 	} else if (message.includes("cancel a ticket")) {
-		response.message =
+		response =
 			"Sure! Please provide me with the ticket number you would like to cancel";
 	} else if (message.includes("check ticket status")) {
-		response.message =
+		response =
 			"Sure! Please provide me with the ticket number you would like to check";
 	} else if (
 		message.includes("get information about the event")
 	) {
-		response.message =
+		response =
 			"The event will take place on Saturday, June 12th, 2021 at 7:00 PM. The venue is the Convention Center. Please let me know if you need more information.";
 	} else if (message.includes("contact support")) {
-		response.message =
+		response =
 			"You can contact support by emailing" +
 			context.supportEmail +
 			" or calling " +
 			context.supportPhone;
-	} else if (message.includes("thank you")) { 
-        response.message = "You're welcome!";
-    } else if (message.includes("temple name")) {
-        response.message = context.templeName;
-    } else if (message.includes("temple location")) {
-        response.message = context.templeLocation;
-    } 
+	} else if (message.includes("thank you")) {
+		response = "You're welcome!";
+	} else if (message.includes("temple name")) {
+		response = context.templeName;
+	} else if (message.includes("temple location")) {
+		response = context.templeLocation;
+	}
 	return new Promise((resolve) => resolve(response));
 }
 
