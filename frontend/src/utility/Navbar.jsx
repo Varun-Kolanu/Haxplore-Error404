@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function Navbar() {
   return (
     <>
-      <div className='h-20 w-full  bg-gray-900 text-white flex justify-between items-center border-gray-300'>
+      <div className='h-20 w-full bg-[#222] text-white flex justify-between items-center border-gray-300'>
         <div className='flex justify-center h-20 w-25 items-center'>
           <Link to='/'>
             <img className='h-22 w-20 pt-4' src={logo} alt='No Image' />
@@ -25,16 +25,16 @@ export default function Navbar() {
           </p>
         </div>
         <div className='flex justify-around items-center gap-8'>
-          <Link className='hover:text-[#FF6D01]' to='/'>
+          <a href='#aboutus' className='hover:text-[#FF6D01]'>
             About Us
-          </Link>
-          <Link className='hover:text-[#FF6D01]' to='/'>
+          </a>
+          <a className='hover:text-[#FF6D01]' href='#services'>
             Our Services
-          </Link>
-          <Link className='hover:text-[#FF6D01]' to='/'>
+          </a>
+          <a className='hover:text-[#FF6D01]' href='#contactus'>
             Contact Us
-          </Link>
-          <Link className='hover:text-[#FF6D01]' to='/'>
+          </a>
+          <Link className='hover:text-[#FF6D01]' to='/dashboard'>
             Dashboard
           </Link>
         </div>
