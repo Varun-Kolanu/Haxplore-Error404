@@ -12,6 +12,7 @@ import authRouter from "./routes/auth.js";
 import { errorMiddleware } from "./middlewares/error.js";
 
 import chatRouter from "./routes/chatRouter.js";
+import paymentRouter from "./routes/payment.js";
 export const app = express();
 app.use(cors({}));
 
@@ -42,6 +43,7 @@ app.use("/events", eventRouter);
 app.use("/tickets", ticketRouter);
 app.use("/chat", chatRouter);
 app.use("/slot", slotRouter);
+app.use("/payment", paymentRouter);
 
 app.use(errorMiddleware);
 
