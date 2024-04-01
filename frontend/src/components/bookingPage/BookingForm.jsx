@@ -12,8 +12,8 @@ export default function BookingForm() {
           <p className='self-start text-[25px] mb-5'>Booking Details : </p>
 
           <div className='relative overflow-x-auto shadow-md sm:rounded-lg w-full'>
-            <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+            <table className='w-full text-sm text-left rtl:text-right text-gray-500 '>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-50 '>
                 <tr>
                   <th scope='col' className='px-6 py-3'>
                     Event Name
@@ -36,10 +36,10 @@ export default function BookingForm() {
                 </tr>
               </thead>
               <tbody>
-                <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
+                <tr className='bg-white border-b  '>
                   <th
                     scope='row'
-                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap '
                   >
                     Ganga Aarti Booking
                   </th>
@@ -50,7 +50,7 @@ export default function BookingForm() {
                   <td className='px-6 py-4'>
                     <Link
                       to='/events'
-                      className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+                      className='font-medium text-blue-600  hover:underline'
                     >
                       Edit
                     </Link>

@@ -8,7 +8,7 @@ export default function SignIn() {
           <a className='hover:underline hover:text-orange-400' href='/'>
             Back to Home Page
           </a>
-          <button class='px-4 py-2 border flex gap-[70px] border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150 w-2/5'>
+          <button class='px-4 py-2 border flex gap-[70px] border-slate-200  rounded-lg text-slate-700  hover:border-slate-400  hover:text-slate-900  hover:shadow transition duration-150 w-2/5'>
             <img
               class='w-6 h-6'
               src='https://www.svgrepo.com/show/475656/google-color.svg'
@@ -23,14 +23,14 @@ export default function SignIn() {
           <form class='max-w-sm mx-auto'>
             <label
               for='phone-input'
-              class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+              class='block mb-2 text-sm font-medium text-gray-900 '
             >
               Signin with Phone Number:
             </label>
             <div class='relative'>
               <div class='absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none'>
                 <svg
-                  class='w-4 h-4 text-gray-500 dark:text-gray-400'
+                  class='w-4 h-4 text-gray-500 '
                   aria-hidden='true'
                   xmlns='http://www.w3.org/2000/svg'
                   fill='currentColor'
@@ -43,20 +43,20 @@ export default function SignIn() {
                 type='tel'
                 id='phone-input'
                 aria-describedby='helper-text-explanation'
-                class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  '
                 placeholder='+91-6290922708'
                 required
               />
             </div>
             <p
               id='helper-text-explanation'
-              class='mt-2 mb-4 text-sm text-gray-500 dark:text-gray-400'
+              class='mt-2 mb-4 text-sm text-gray-500 '
             >
               We will send you an SMS with a verification code.
             </p>
             <button
               type='submit'
-              class='text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+              class='text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none '
             >
               Send verification code
             </button>

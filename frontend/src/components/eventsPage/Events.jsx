@@ -11,7 +11,7 @@ export default function Events() {
         <div className='w-full flex items-center justify-center  mt-10'>
           <label
             for='date_field'
-            className='block mb-2 mr-2 text-xl font-medium text-gray-900 dark:text-white'
+            className='block mb-2 mr-2 text-xl font-medium text-gray-900'
           >
             Select Date :
           </label>
@@ -21,8 +21,8 @@ export default function Events() {
             className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5'
             required
           />
-          <button className='relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-orange-400 to-orange-400 group-hover:from-orange-500 group-hover:to-orange-400 hover:text-white dark:text-white ml-20'>
-            <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'>
+          <button className='relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-orange-400 to-orange-400 group-hover:from-orange-500 group-hover:to-orange-400 hover:text-white ml-20'>
+            <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white  rounded-md group-hover:bg-opacity-0'>
               Check Availability
             </span>
           </button>
@@ -33,8 +33,8 @@ export default function Events() {
           </p>
 
           <div className='relative overflow-x-auto shadow-md sm:rounded-lg w-4/5'>
-            <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+            <table className='w-full text-sm text-left rtl:text-right text-gray-500 '>
+              <thead className='text-xs text-gray-700 uppercase bg-gray-50  '>
                 <tr>
                   <th scope='col' className='px-6 py-3'>
                     Event Name
@@ -54,10 +54,10 @@ export default function Events() {
                 </tr>
               </thead>
               <tbody>
-                <tr className='odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700'>
+                <tr className='odd:bg-white even:bg-gray-50 border-b '>
                   <th
                     scope='row'
-                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap '
                   >
                     Ganga Aarti Booking
                   </th>
@@ -67,16 +67,16 @@ export default function Events() {
                   <td className='px-6 py-4'>
                     <Link
                       to='/bookingForm'
-                      className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+                      className='font-medium text-blue-600  hover:underline'
                     >
                       Book Now
                     </Link>
                   </td>
                 </tr>
-                <tr className='odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700'>
+                <tr className='odd:bg-white  even:bg-gray-50  border-b '>
                   <th
                     scope='row'
-                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap '
                   >
                     Ganga Aarti Booking
                   </th>
@@ -86,16 +86,16 @@ export default function Events() {
                   <td className='px-6 py-4'>
                     <Link
                       to='/bookingForm'
-                      className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+                      className='font-medium text-blue-600  hover:underline'
                     >
                       Book Now
                     </Link>
                   </td>
                 </tr>
-                <tr className='odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700'>
+                <tr className='odd:bg-white  even:bg-gray-50  border-b '>
                   <th
                     scope='row'
-                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap '
                   >
                     Ganga Aarti Booking
                   </th>
@@ -105,16 +105,16 @@ export default function Events() {
                   <td className='px-6 py-4'>
                     <a
                       href='#'
-                      className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+                      className='font-medium text-blue-600  hover:underline'
                     >
                       Book Now
                     </a>
                   </td>
                 </tr>
-                <tr className='odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700'>
+                <tr className='odd:bg-white  even:bg-gray-50  border-b '>
                   <th
                     scope='row'
-                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap '
                   >
                     Ganga Aarti Booking
                   </th>
@@ -124,7 +124,7 @@ export default function Events() {
                   <td className='px-6 py-4'>
                     <Link
                       to='/bookingForm'
-                      className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+                      className='font-medium text-blue-600  hover:underline'
                     >
                       Book Now
                     </Link>
@@ -133,7 +133,7 @@ export default function Events() {
                 <tr>
                   <th
                     scope='row'
-                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap '
                   >
                     Ganga Aarti Booking
                   </th>
@@ -143,7 +143,7 @@ export default function Events() {
                   <td className='px-6 py-4'>
                     <Link
                       to='/bookingForm'
-                      className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+                      className='font-medium text-blue-600  hover:underline'
                     >
                       Book Now
                     </Link>
