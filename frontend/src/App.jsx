@@ -5,6 +5,7 @@ import SignIn from './components/signinPage/SignIn.jsx';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Events from './components/eventsPage/Events.jsx';
 import BookingForm from './components/bookingPage/BookingForm.jsx';
+import Dashboard from './components/dashboard/Dashboard.jsx';
 function App() {
   return (
     <>
@@ -14,6 +15,7 @@ function App() {
           <Route exact path='/signin' element={<SignIn />} />
           <Route exact path='/events' element={<Events />} />
           <Route exact path='/bookingForm' element={<BookingForm />} />
+          <Route path='/dashboard' element={<Dashboard></Dashboard>} />
         </Routes>
       </Router>
     </>
