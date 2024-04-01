@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-const openai = new OpenAI();
+const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 export async function chatResponse(req, res) {
 	const { message } = req.body;
 	const response = await chatGPTResponse(message);

@@ -1,5 +1,5 @@
-import Event from "../models/eventModel";
-import Slot from "../models/slotModel";
+import Event from "../models/eventModel.js";
+import Slot from "../models/slotModel.js";
 
 export const createSlots = async (req, res, next) => {
     try {
