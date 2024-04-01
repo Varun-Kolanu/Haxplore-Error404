@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '../../utility/Card';
+import axios from 'axios';
 
 export default function Services() {
+
+  const [events, setEvents] = useState([]);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  useEffect(() => {
+    axios.get(`${backendUrl}/events`).then(res => {
+      setEvents(res.data);
+    }).catch(err => console.error(err));
+  }, [])
+
   return (
     <>
       <div className='flex flex-col items-center justify-center border-t border-gray-300'>
@@ -9,12 +20,11 @@ export default function Services() {
           Our Services
         </h1>
         <div className='grid grid-cols-3 gap-7 w-full pl-[55px] pb-10 pt-5'>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
+          {
+            events.map(event => (
+              <Card key={event._id} name={event.name} description={event.description} image_url={event.imageUrl} eventId={event._id}></Card>
+            ))
+          }
         </div>
       </div>
     </>

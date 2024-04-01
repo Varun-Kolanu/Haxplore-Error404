@@ -11,7 +11,7 @@ import { getSlots } from "../controllers/slotController.js";
 const eventRouter = express.Router();
 
 eventRouter.route("/").get(getEvents).post(isAuthenticated, createEvent);
-eventRouter.route("/slots/:id").get(getSlots);
+eventRouter.route("/slots").post(getSlots);
 eventRouter.route("/:id").get(getEvent).patch(isAuthenticated, updateEvent);
 
 export default eventRouter;

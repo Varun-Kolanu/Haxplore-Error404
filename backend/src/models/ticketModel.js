@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+const personSchema = new mongoose.Schema({
+	name: { type: String, required: true },
+	age: { type: Number, required: true },
+	gender: { type: String, required: true, enum: ['Male', 'Female'] },
+});
+
 const ticketSchema = new mongoose.Schema({
 	slot: { type: mongoose.Schema.Types.ObjectId, ref: "Slot" },
     booked_by: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -9,6 +15,7 @@ const ticketSchema = new mongoose.Schema({
 		enum: ["confirmed", "cancelled", "pending", "completed"],
 		required: true,
 	},
+	person: personSchema,
 	entered: { type: Boolean, default: false },
 	exited: { type: Boolean, default: false },
 	createdAt: {

@@ -9,18 +9,19 @@ export async function bookTickets(req, res, next) {
 		const { slotId, persons } = req.body;
 		let slot = await Slot.findById(slotId);
 		const availableTickets = slot.MAX_ATTENDEES - slot.currentReserved;
-		if (persons > availableTickets) {
+		if (persons.length > availableTickets) {
 			return res.status(400).json({
 				message: "Requested number of tickets not available"
 			})
 		}
-		slot.currentReserved += persons;
+		slot.currentReserved += persons.length;
 		await slot.save();
 		let tickets = [];
-		for (let i=0; i<persons; i++) {
+		for (let i=0; i<persons.length; i++) {
 			const ticket = await Ticket.create({
 				slot: slotId,
-				booked_by: req.user._id
+				booked_by: req.user._id,
+				person: persons[i]
 			});
 			tickets.push(ticket);
 		}
@@ -33,20 +34,32 @@ export async function bookTickets(req, res, next) {
 export const confirmTickets = async (req, res, next) => {
 	try {
 		const { slotId } = req.body;
-		let tickets = await Ticket.find({
+		const updateResult = await Ticket.updateMany({
 			slot: slotId,
 			booked_by: req.user._id,
 			status: 'pending'
-		})
-		tickets.forEach(ticket => {
-			ticket.status = 'confirmed';
-		})
-		await tickets.save();
-		res.status(200).json(tickets);
+		}, {
+			$set: { status: 'confirmed' }
+		});
+		const { nModified } = updateResult;
+		
+		if (nModified > 0) {
+			// If at least one ticket was modified, fetch and return the updated tickets
+			const updatedTickets = await Ticket.find({
+				slot: slotId,
+				booked_by: req.user._id,
+				status: 'confirmed'
+			});
+			return res.status(200).json(updatedTickets);
+		} else {
+			// If no tickets were modified, return a message indicating no changes
+			return res.status(200).json({ message: 'No tickets were confirmed' });
+		}
 	} catch (error) {
 		next(error);
 	}
 }
+
 
 export const paymentFailed = async (req, res, next) => {
 	try {
