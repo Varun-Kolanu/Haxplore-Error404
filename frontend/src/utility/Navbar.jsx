@@ -40,8 +40,8 @@ export default function Navbar() {
         </div>
         <div className='flex items-center'>
           <Link
-            to='/'
-            className='navButtoms w-24 h-10 flex justify-center items-center text-base font-semibold text-center bg-white text-black rounded-md'
+            to='/signin'
+            className='mr-5 w-24 h-10 flex justify-center items-center text-base font-semibold text-center bg-white text-black rounded-md'
           >
             Sign in
           </Link>

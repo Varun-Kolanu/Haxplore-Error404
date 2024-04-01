@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './Card.module.css';
 import pic from '../assets/aarti.webp';
+import { Link } from 'react-router-dom';
 
 export default function Card() {
   return (
@@ -25,9 +26,12 @@ export default function Card() {
             years. The seven Shastri/Pandit/Purohit each belonging to a
             different Gotra perform the Aarti simultaneously.
           </p>
-          <button className='mt-8 w-[110px] text-white bg-orange-400 hover:bg-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-300 font-medium rounded-full text-m px-4 py-2 text-center me-2 mb-2 dark:focus:ring-orange-900'>
+          <Link
+            to='/events'
+            className='mt-8 w-[110px] text-white bg-orange-400 hover:bg-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-300 font-medium rounded-full text-m px-4 py-2 text-center me-2 mb-2 dark:focus:ring-orange-900'
+          >
             Book Now
-          </button>
+          </Link>
         </div>
       </div>
     </>
