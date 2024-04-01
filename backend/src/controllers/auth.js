@@ -37,6 +37,7 @@ export const sendOtp = async (req, res, next) => {
                 to: '+91' + mobileNumber
             })
         let otpDoc = await Otp.findOne({ mobileNumber });
+        console.log(otpDoc);
         if (!otpDoc) {
             otpDoc = await Otp.create({ mobileNumber, otp });
         }
@@ -44,6 +45,7 @@ export const sendOtp = async (req, res, next) => {
             otpDoc.otp = otp;
             await otpDoc.save();
         }
+        console.log(otpDoc);
         res.status(201).json({
             message: "Otp sent successfully!"
         })

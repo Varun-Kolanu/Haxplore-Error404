@@ -28,6 +28,7 @@
     "passport": "^0.7.0",
     "passport-google-oauth-token": "^1.0.7",
     "razorpay": "^2.9.2",
-    "twilio": "^5.0.1"
+    "twilio": "^5.0.1",
+    "uuid": "^9.0.1"
   }
 }

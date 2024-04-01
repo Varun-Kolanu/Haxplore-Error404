@@ -1,16 +1,17 @@
 import Event from "../models/eventModel.js";
 
 export function createEvent(req, res) {
-	const { name, description } = req.body;
-	const event = new Event({
-		name,
-		description,
-	});
+	const { name, description, slotRanges } = req.body;
 	if (req.user.role !== 'admin') {
 		return res.status(403).json({
 			message: 'You do not have permission to create an event'
 		})
 	}
+	const event = new Event({
+		name,
+		description,
+		slotRanges
+	});
 	event
 		.save()
 		.then((event) => {
